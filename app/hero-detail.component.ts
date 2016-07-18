@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteParams } from '@angular/router-deprecated';
+// import { RouteParams } from '@angular/router';
 import { PolymerElement } from '@vaadin/angular2-polymer';
 
 import { Hero } from './hero';
@@ -28,12 +28,12 @@ export class HeroDetailComponent implements OnInit {
   hero: Hero;
 
   constructor(
-    private _routeParams: RouteParams,
+    // private _routeParams: RouteParams,
     private _heroService: HeroService
   ) { }
 
   ngOnInit() {
-    let id = +this._routeParams.get('id');
-    this._heroService.getHero(id).then(hero => this.hero = hero);
+    // let id = +this._routeParams.get('id');
+    // this._heroService.getHero(id).then(hero => this.hero = hero);
   }
 }

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, RouteData } from '@angular/router-deprecated';
 import { PolymerElement } from '@vaadin/angular2-polymer';
 
 import { HeroService } from './hero.service';
-import { HeroesComponent } from './heroes.component';
-import { HeroDetailComponent } from './hero-detail.component';
+import {Router, ROUTER_DIRECTIVES} from "@angular/router";
+
 
 @Component({
   selector: 'my-app',
@@ -43,30 +42,10 @@ import { HeroDetailComponent } from './hero-detail.component';
     PolymerElement('paper-icon-button')
   ],
   providers: [
-    ROUTER_PROVIDERS,
     HeroService
   ]
 })
-@RouteConfig([
-  {
-    path: '/heroes',
-    name: 'Heroes',
-    component: HeroesComponent,
-    useAsDefault: true,
-    data: {
-      title: 'All heroes',
-      root: true
-    }
-  },
-  {
-    path: '/heroes/:id',
-    name: 'HeroDetail',
-    component: HeroDetailComponent,
-    data: {
-      title: 'Hero detail'
-    }
-  }
-])
+
 export class AppComponent implements OnInit {
   title = '';
   isInChildView = false;
@@ -74,11 +53,11 @@ export class AppComponent implements OnInit {
   constructor(private _router: Router) { }
 
   ngOnInit() {
-    this._router.subscribe(() => {
-      let routeData: RouteData = this._router.currentInstruction.component.routeData;
-      this.title = routeData.get('title');
-      this.isInChildView = !routeData.get('root');
-    });
+    // this._router.subscribe(() => {
+    //   let routeData: RouteData = this._router.currentInstruction.component.routeData;
+    //   this.title = routeData.get('title');
+    //   this.isInChildView = !routeData.get('root');
+    // });
   }
 
   goBack() {
