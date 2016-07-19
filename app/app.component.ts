@@ -1,66 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { PolymerElement } from '@vaadin/angular2-polymer';
-
-import { HeroService } from './hero.service';
-import {Router, ROUTER_DIRECTIVES} from "@angular/router";
+import { Component } from '@angular/core';
+import {PolymerElement} from "@vaadin/angular2-polymer";
 
 
+export class Hero {
+  id: number;
+  name: string;
+}
 @Component({
   selector: 'my-app',
   template: `
-    <app-header-layout has-scrolling-region>
-      <app-header fixed>
-        <app-toolbar [class.raised]="isInChildView">
-          <paper-icon-button icon="arrow-back" *ngIf="isInChildView" (click)="goBack()"></paper-icon-button>
-          <div title spacer>{{title}}</div>
-        </app-toolbar>
-      </app-header>
-      <router-outlet></router-outlet>
-    </app-header-layout>
-  `,
-  styles: [`
-    app-toolbar {
-      background: var(--primary-color);
-      color: var(--dark-theme-text-color);
-    }
-
-    app-toolbar.raised {
-      @apply(--shadow-elevation-4dp);
-    }
-
-    paper-icon-button {
-      position: absolute;
-      top: 12px;
-      left: 8px;
-    }
-  `],
-  directives: [
-    ROUTER_DIRECTIVES,
-    PolymerElement('app-header-layout'),
-    PolymerElement('app-header'),
-    PolymerElement('app-toolbar'),
-    PolymerElement('paper-icon-button')
-  ],
-  providers: [
-    HeroService
-  ]
+    <h1>{{title}}</h1>
+    <h2>{{hero.name}} details!</h2>
+    <div><label>id: </label>{{hero.id}}</div>
+    <div>
+      <label>name: </label>
+      <input [(ngModel)]="hero.name" placeholder="name">
+    </div>
+    <vaadin-grid [items]="products">
+        <table>
+            <colgroup>
+                <col name="name">
+            </colgroup>
+        </table>
+    </vaadin-grid>
+    `,
+  directives: [PolymerElement('vaadin-grid')]
 })
-
-export class AppComponent implements OnInit {
-  title = '';
-  isInChildView = false;
-
-  constructor(private _router: Router) { }
-
-  ngOnInit() {
-    // this._router.subscribe(() => {
-    //   let routeData: RouteData = this._router.currentInstruction.component.routeData;
-    //   this.title = routeData.get('title');
-    //   this.isInChildView = !routeData.get('root');
-    // });
-  }
-
-  goBack() {
-    this._router.navigate(['Heroes']);
-  }
+export class AppComponent {
+  title = 'Tour of Heroes';
+  hero: Hero = {
+    id: 1,
+    name: 'Windstorm'
+  };
+  products:any[] = [
+    {id:1, name:'dfsdf'},
+    {id:2, name:'11111'},
+    {id:3, name:'22222'}
+  ];
 }
